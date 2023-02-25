@@ -127,8 +127,8 @@ namespace ConsoleApp4.Handlers
         {
              Producto producto = obtenerProducto(id);
              producto.Stock -= cantidadVendidos;
-            
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            string conectionString = "Data Source=DESKTOP-9SVG7S5;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
