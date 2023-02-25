@@ -1,0 +1,8 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Api_CRUD_ABM/v17
+/.vs/Api_Penultima_Entrega/FileContentIndex
+/obj
+/Properties
