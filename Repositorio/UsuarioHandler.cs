@@ -14,8 +14,7 @@ namespace Api_Penultima_Entrega.Repositorio
         {
             // en como recibe un numero asumo que es el ID y como es unico solo debo traer un solo usuario
             Usuario usuario = new Usuario();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
 
@@ -51,8 +50,7 @@ namespace Api_Penultima_Entrega.Repositorio
         public static Usuario obtenerInicioDeSesion(string usuario, string contraseña)
         { // en este caso tambien traigo un solo usuario  ya que es por contraseña y nombre 
             Usuario Login = new Usuario();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
 
@@ -87,9 +85,8 @@ namespace Api_Penultima_Entrega.Repositorio
 
         public static int updateUsuario( Usuario usuario)
         {
-  
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
                 conection.Open();

@@ -11,26 +11,13 @@ namespace Api_Penultima_Entrega.Controllers
     public class VentaController : ControllerBase
     {
 
-        [HttpPost]
-        public void InsertarVenta(Venta venta)
-        {
-            VentaHandler.InsertarVenta(venta);
-        }
-
         [HttpPost("{id}")]
         public void cargarVenta(long id, List<Producto> productos)
         {
             VentaHandler.cargarVenta(id, productos);
+            Console.WriteLine("Fin cargar venta");
         }
 
-        [HttpPost]
-        public void InsertarProductosVendidos(ProductoVendido productoVendido )
-        {
-
-         ProductoVendidoHandler.InsertarProductoVendido(productoVendido);
-        }
-
-        
        
      }
 

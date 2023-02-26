@@ -48,9 +48,9 @@ namespace Api_Penultima_Entrega.Repositorio
         public static void InsertarProductoVendido(ProductoVendido productoVendido)
         {
 
-            string conectionString = "Data Source=DESKTOP-9SVG7S5;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           
-                using (SqlConnection conection = new SqlConnection(conectionString))
+            string conectionString = ConectionHandler.conectionString();
+
+            using (SqlConnection conection = new SqlConnection(conectionString))
                 {
 
                     conection.Open();
@@ -60,7 +60,7 @@ namespace Api_Penultima_Entrega.Repositorio
                     command.Parameters.AddWithValue("@Stock", productoVendido.Stock);
                     command.Parameters.AddWithValue("@IdProducto", productoVendido.IdProducto);
                     command.Parameters.AddWithValue("@IdVenta", productoVendido.IdVenta);
-                    
+                    command.ExecuteNonQuery();
                 }
 
         }

@@ -1,4 +1,5 @@
 ﻿using Api_Penultima_Entrega.Modelos;
+using Api_Penultima_Entrega.Repositorio;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections;
@@ -16,8 +17,7 @@ namespace ConsoleApp4.Handlers
         {
 
             List<Producto> productos = new List<Producto>();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
 
@@ -53,7 +53,7 @@ namespace ConsoleApp4.Handlers
         {
 
             Producto producto = new Producto();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string conectionString = ConectionHandler.conectionString();
 
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
@@ -91,8 +91,8 @@ namespace ConsoleApp4.Handlers
         public static int crearProducto(Producto producto)
         {
 
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            
+            string conectionString = ConectionHandler.conectionString();
+
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
                 conection.Open();
@@ -110,8 +110,7 @@ namespace ConsoleApp4.Handlers
         public static int eliminarProducto(long id)
         {
 
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
                 conection.Open();
@@ -128,8 +127,7 @@ namespace ConsoleApp4.Handlers
              Producto producto = obtenerProducto(id);
              producto.Stock -= cantidadVendidos;
 
-            string conectionString = "Data Source=DESKTOP-9SVG7S5;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
                 conection.Open();

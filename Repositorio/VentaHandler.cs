@@ -1,4 +1,5 @@
 ﻿using Api_Penultima_Entrega.Modelos;
+using ConsoleApp4.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,7 +14,7 @@ namespace Api_Penultima_Entrega.Repositorio
         public static List<Venta> obtenerVentas(long id)
         {
             List<Venta> ventas = new List<Venta>();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string conectionString = ConectionHandler.conectionString();
 
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
@@ -44,48 +45,62 @@ namespace Api_Penultima_Entrega.Repositorio
 
         }
 
-        public static long InsertarVenta(Venta venta)
+        public static void InsertarVenta(Venta venta)
         {
-
-            string conectionString = "Data Source=DESKTOP-9SVG7S5;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            using (SqlConnection conection = new SqlConnection(conectionString))
+            string conectionString = ConectionHandler.conectionString();
+;            using (SqlConnection conection = new SqlConnection(conectionString))
             {
                 conection.Open();
-                SqlCommand commandVenta = new SqlCommand("Insert into Venta(Comentarios, IdUsuario)" +
-                    "values (@Comentarios,@IdUsuario);Select @@IDENTITY ", conection);
+                SqlCommand commandVenta = new SqlCommand("INSERT INTO [dbo].[Venta] ([Comentarios] ,[IdUsuario])VALUES (@Comentarios,@IdUsuario); Select @@IDENTITY ", conection);
 
                 commandVenta.Parameters.AddWithValue("@Comentarios", venta.Comentario);
                 commandVenta.Parameters.AddWithValue("@IdUsuario", venta.IdUsuario);
-                commandVenta.ExecuteScalar();
+                commandVenta.ExecuteNonQuery();
 
 
-                return Convert.ToInt64(commandVenta.ExecuteScalar());
+                //return Convert.ToInt64(commandVenta.ExecuteScalar());
             }
-
-            
 
         }
 
         public static void cargarVenta(long id, List<Producto> productosVendidos) {
 
-            string conectionString = "Data Source=DESKTOP-9SVG7S5;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-          foreach (Producto producto in productosVendidos){
-               using (SqlConnection conection = new SqlConnection(conectionString))
+           foreach (Producto producto in productosVendidos)
+            {
+                Venta venta = new Venta();
+                Int64 productId = producto.Id;
+                Int64 productUser = producto.IdUsuario;
+                string product = producto.Descripcion;
+                int productStock = (producto.Stock);
+                venta.Comentario = $"se vendieron unidades:{productStock} del producto: {product} ";
+                venta.IdUsuario = productUser;
+
+                ProductoVendido productoVendido = new ProductoVendido();
+                productoVendido.IdProducto = productId;
+                productoVendido.IdVenta = id;
+                productoVendido.Stock = productStock;
+
+                InsertarVenta(venta);
+                ProductoVendidoHandler.InsertarProductoVendido( productoVendido);
+                ProductoHandler.updateStockProducto(productId,productStock);
+                /* using (SqlConnection conection = new SqlConnection(conectionString))
                 {
-              
-                conection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Producto](Descripciones,Costo,PrecioVenta,Stock,IdUsuario)" + "VALUES(@Descripciones,@Costo,@PrecioVenta,@Stock,@IdUsuario)", conection);
-              
-                
+                        
+                    conection.Open();
+                    //VentaHandler.InsertarVenta()
+  
+                    SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Producto](Descripciones,Costo,PrecioVenta,Stock,IdUsuario)" + "VALUES(@Descripciones,@Costo,@PrecioVenta,@Stock,@IdUsuario)", conection);
+
                     command.Parameters.AddWithValue("@Descripciones", producto.Descripcion);
                     command.Parameters.AddWithValue("@Costo", producto.Costo);
                     command.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
                     command.Parameters.AddWithValue("@Stock", producto.Stock);
                     command.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
-                }
+
+
+                } */
 
             }
-
 
         }
     }
