@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
+using Api_Penultima_Entrega.Repositorio;
 
 namespace Api_Penultima_Entrega.Controllers
 {
@@ -7,5 +9,10 @@ namespace Api_Penultima_Entrega.Controllers
     [ApiController]
     public class ProductoVendidoController : ControllerBase
     {
+        [HttpGet("{id}")]
+        public void getProductosVendidos(long id) {
+
+         ProductoVendidoHandler.obtenerProductosVendidos(id);
+        }
     }
 }

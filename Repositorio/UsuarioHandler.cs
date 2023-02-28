@@ -10,7 +10,7 @@ namespace Api_Penultima_Entrega.Repositorio
 {
     internal class UsuarioHandler
     {
-        public static Usuario obtenerUsuario(int id)
+        public static Usuario obtenerUsuario(int id)//Get usuario
         {
             // en como recibe un numero asumo que es el ID y como es unico solo debo traer un solo usuario
             Usuario usuario = new Usuario();
@@ -47,7 +47,7 @@ namespace Api_Penultima_Entrega.Repositorio
 
         }
       
-        public static Usuario obtenerInicioDeSesion(string usuario, string contraseña)
+        public static Usuario obtenerInicioDeSesion(string usuario, string contraseña)//Get Login
         { // en este caso tambien traigo un solo usuario  ya que es por contraseña y nombre 
             Usuario Login = new Usuario();
             string conectionString = ConectionHandler.conectionString();
@@ -82,8 +82,29 @@ namespace Api_Penultima_Entrega.Repositorio
 
         }
 
+        public static int crearUsuario(Usuario usuario)//Crear Usuario
+        {
 
-        public static int updateUsuario( Usuario usuario)
+            string conectionString = ConectionHandler.conectionString();
+
+            using (SqlConnection conection = new SqlConnection(conectionString))
+            {
+                conection.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Usuario]([Nombre],[Apellido],[NombreUsuario] ,[Contraseña],[Mail])"
+                +"VALUES(@Nombre,@Apellido, @NombreUsuario, @Contraseña, @Mail)", conection);
+
+                command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                command.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                command.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
+                command.Parameters.AddWithValue("@Mail", usuario.Mail);
+
+                return command.ExecuteNonQuery();
+            }
+        }
+
+
+        public static int updateUsuario( Usuario usuario)//Modificar Usuario
         {
 
             string conectionString = ConectionHandler.conectionString();
@@ -99,6 +120,20 @@ namespace Api_Penultima_Entrega.Repositorio
                 command.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
                 command.Parameters.AddWithValue("@Mail", usuario.Mail);
                 
+
+                return command.ExecuteNonQuery();
+            }
+        }
+
+        public static int eliminarUsuario(long id)//Eliminar Usuario
+        {
+
+            string conectionString = ConectionHandler.conectionString();
+            using (SqlConnection conection = new SqlConnection(conectionString))
+            {
+                conection.Open();
+                SqlCommand command = new SqlCommand("delete from dbo.Usuario where Id =@id", conection);
+                command.Parameters.AddWithValue(@"id", id);
 
                 return command.ExecuteNonQuery();
             }

@@ -13,8 +13,7 @@ namespace Api_Penultima_Entrega.Repositorio
         public static List<ProductoVendido> obtenerProductosVendidos(long id)
         {
             List<ProductoVendido> productosVendidos = new List<ProductoVendido>();
-            string conectionString = "Data Source=HERNAN;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+            string conectionString = ConectionHandler.conectionString();
             using (SqlConnection conection = new SqlConnection(conectionString))
             {
 

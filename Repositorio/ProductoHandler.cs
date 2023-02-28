@@ -122,7 +122,7 @@ namespace ConsoleApp4.Handlers
         }
 
 
-        public static int updateStockProducto(long id, int cantidadVendidos)
+        public static int updateStockProducto(long id, int cantidadVendidos)//Modificar producto (como venia de la entrega de la clase 15)
         {
              Producto producto = obtenerProducto(id);
              producto.Stock -= cantidadVendidos;

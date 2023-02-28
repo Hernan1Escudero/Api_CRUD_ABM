@@ -44,7 +44,32 @@ namespace Api_Penultima_Entrega.Repositorio
             }
 
         }
+        public static Venta obtenerVenta(long id)
+        {
+           Venta venta = new Venta();
+            string conectionString = ConectionHandler.conectionString();
 
+            using (SqlConnection conection = new SqlConnection(conectionString))
+            {
+
+                SqlCommand ProductWithUserID = new SqlCommand($"select * from [dbo].[venta]\r\ninner join Usuario on\r\nventa.IdUsuario = Usuario.Id\r\nwhere Usuario.Id ='{id}' ", conection);
+
+                conection.Open();
+                SqlDataReader reader = ProductWithUserID.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    venta.Id = reader.GetInt64(0);
+                    venta.Comentario = reader.GetString(1);
+                    venta.IdUsuario = reader.GetInt64(2);
+                    return venta;
+                }
+                else {
+                    return null;
+                }
+            }
+
+        }
         public static void InsertarVenta(Venta venta)
         {
             string conectionString = ConectionHandler.conectionString();
@@ -57,8 +82,6 @@ namespace Api_Penultima_Entrega.Repositorio
                 commandVenta.Parameters.AddWithValue("@IdUsuario", venta.IdUsuario);
                 commandVenta.ExecuteNonQuery();
 
-
-                //return Convert.ToInt64(commandVenta.ExecuteScalar());
             }
 
         }
@@ -83,22 +106,7 @@ namespace Api_Penultima_Entrega.Repositorio
                 InsertarVenta(venta);
                 ProductoVendidoHandler.InsertarProductoVendido( productoVendido);
                 ProductoHandler.updateStockProducto(productId,productStock);
-                /* using (SqlConnection conection = new SqlConnection(conectionString))
-                {
-                        
-                    conection.Open();
-                    //VentaHandler.InsertarVenta()
-  
-                    SqlCommand command = new SqlCommand("INSERT INTO [dbo].[Producto](Descripciones,Costo,PrecioVenta,Stock,IdUsuario)" + "VALUES(@Descripciones,@Costo,@PrecioVenta,@Stock,@IdUsuario)", conection);
-
-                    command.Parameters.AddWithValue("@Descripciones", producto.Descripcion);
-                    command.Parameters.AddWithValue("@Costo", producto.Costo);
-                    command.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
-                    command.Parameters.AddWithValue("@Stock", producto.Stock);
-                    command.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
-
-
-                } */
+              
 
             }
 
