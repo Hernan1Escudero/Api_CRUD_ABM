@@ -11,12 +11,12 @@ namespace Api_Penultima_Entrega.Controllers
     [ApiController]
     public class VentaController : ControllerBase
     {
-        [HttpPost("{id}")]
-        public HttpResponseMessage cargarVenta(long id, List<Producto> productos)
+        [HttpPost("{idUsuario}")]
+        public HttpResponseMessage cargarVenta(long idUsuario, List<Producto> productos)
         {
             try
             {
-                VentaHandler.cargarVenta(id, productos);
+                VentaHandler.cargarVenta(idUsuario, productos);
                 return new HttpResponseMessage(HttpStatusCode.Accepted);
             }
             catch ( Exception ex) {
@@ -27,13 +27,13 @@ namespace Api_Penultima_Entrega.Controllers
             
         }
 
-        [HttpGet("{id}")]
-        public HttpResponseMessage traerVenta(long id)
+        [HttpGet("{idUsuario}")]
+        public HttpResponseMessage traerVenta(long idUsuario)
         {
 
             try
             {
-                VentaHandler.obtenerVenta(id);
+                VentaHandler.obtenerVenta(idUsuario);
                 return new HttpResponseMessage(HttpStatusCode.Accepted);
             }
             catch (Exception ex)

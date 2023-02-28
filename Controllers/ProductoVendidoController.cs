@@ -9,10 +9,10 @@ namespace Api_Penultima_Entrega.Controllers
     [ApiController]
     public class ProductoVendidoController : ControllerBase
     {
-        [HttpGet("{id}")]
-        public void getProductosVendidos(long id) {
+        [HttpGet("{idUsuario}")]
+        public void getProductosVendidos(long idUsuario) {
 
-         ProductoVendidoHandler.obtenerProductosVendidos(id);
+         ProductoVendidoHandler.obtenerProductosVendidos(idUsuario);
         }
     }
 }

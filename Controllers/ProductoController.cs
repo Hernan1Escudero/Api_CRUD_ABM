@@ -3,6 +3,7 @@ using Api_Penultima_Entrega.Repositorio;
 using ConsoleApp4.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Api_Penultima_Entrega.Controllers
@@ -55,5 +56,21 @@ namespace Api_Penultima_Entrega.Controllers
             }
 
         }
+
+        [HttpGet("{idUsuario}")]
+        public HttpResponseMessage traerProducto(long idUsuario)
+        {
+            try
+            {
+                ProductoHandler.obtenerProducto(idUsuario);
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
+            }
+            catch (Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+            }
+
+        }
+
     }
 }
