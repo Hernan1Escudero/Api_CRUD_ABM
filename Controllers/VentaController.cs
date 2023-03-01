@@ -28,18 +28,18 @@ namespace Api_Penultima_Entrega.Controllers
         }
 
         [HttpGet("{idUsuario}")]
-        public HttpResponseMessage traerVenta(long idUsuario)
+        public Venta traerVenta(long idUsuario)
         {
 
             try
             {
-                VentaHandler.obtenerVenta(idUsuario);
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
+                
+                return VentaHandler.obtenerVenta(idUsuario);
             }
             catch (Exception ex)
             {
 
-                return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+                return new Venta();
             }
 
         }

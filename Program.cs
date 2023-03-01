@@ -9,12 +9,17 @@ namespace Api_Penultima_Entrega
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddCors(policy =>
+            {
+                policy.AddDefaultPolicy(options =>
+                options.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseCors();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

@@ -58,16 +58,16 @@ namespace Api_Penultima_Entrega.Controllers
         }
 
         [HttpGet("{idUsuario}")]
-        public HttpResponseMessage traerProducto(long idUsuario)
+        public Producto traerProducto(long idUsuario)
         {
             try
             {
-                ProductoHandler.obtenerProducto(idUsuario);
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
+                
+                return ProductoHandler.obtenerProducto(idUsuario);
             }
             catch (Exception ex)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotAcceptable);
+                return new Producto();
             }
 
         }

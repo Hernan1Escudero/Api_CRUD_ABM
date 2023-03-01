@@ -51,7 +51,7 @@ namespace Api_Penultima_Entrega.Controllers
             }
             catch (Exception ex)
             {
-                return null;
+                return new Usuario();
             }
 
         }
@@ -67,7 +67,7 @@ namespace Api_Penultima_Entrega.Controllers
             }
             catch (Exception ex)
             {
-                return null;
+                return new Usuario();
             }
 
         }
