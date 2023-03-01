@@ -16,7 +16,7 @@ namespace Api_Penultima_Entrega.Controllers
         [HttpPost]
         public void crearUsuario(Usuario usuario)
         {
-            if (UsuarioHandler.updateUsuario(usuario) >= 1)
+            if (UsuarioHandler.crearUsuario(usuario) >= 1)
             {
                 Console.WriteLine("se pudo modificar usuario");
             }
@@ -57,13 +57,13 @@ namespace Api_Penultima_Entrega.Controllers
         }
 
 
-        [HttpGet("{idUsuario}/{contrasena}")]
-        public  Usuario traerLogin( string idUsuario, string contrasena)
+        [HttpGet("{nombreUsuario}/{contrasena}")]
+        public  Usuario traerLogin( string nombreUsuario, string contrasena)
         {
             try
             {
                 
-                return UsuarioHandler.obtenerInicioDeSesion(idUsuario, contrasena);
+                return UsuarioHandler.obtenerInicioDeSesion(nombreUsuario, contrasena);
             }
             catch (Exception ex)
             {
